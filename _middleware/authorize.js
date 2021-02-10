@@ -1,7 +1,7 @@
-//const environment = process.env.ENV || 'development';
-//const { secret } = require('../config/config')[environment];
+const environment = process.env.ENV || 'development';
+const { secret } = require('../config/config')[environment];
 
-const { secret } = require('../config.json');
+//const { secret } = require('../config.json');
 
 const jwt = require('express-jwt');
 const db = require('../_helpers/db');

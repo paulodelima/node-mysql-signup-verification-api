@@ -1,4 +1,8 @@
-﻿const config = require('config.json');
+﻿//const config = require('config.json');
+
+const environment = process.env.ENV || 'development';
+const config = require('../config/config')[environment];
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const crypto = require("crypto");

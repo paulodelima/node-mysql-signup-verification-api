@@ -7,7 +7,16 @@ module.exports = {
             password: '@SoulPlus4589@',
             database: 'soulplus'
         },
-        secret: '1C3C7E1694F1E9DAD939399E87E5FFB5DF06B2327CA31B409CB3'
+        secret: 'SOULPLUS-2021',
+        emailFrom: 'Soul Plus Teste',
+        smtpOptions: {
+            host: 'smtp.ethereal.email',
+            port: 587,
+            auth: {
+                user: 'zula51@ethereal.email',
+                pass: 'mvmWRgNn4nPW2a56Vj'
+            }
+        }
     },
     production: {
         database: {
@@ -17,6 +26,15 @@ module.exports = {
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME
         },
-        secret: process.env.JWT_SECRET
+        secret: process.env.JWT_SECRET,
+        emailFrom: process.env.EMAIL_FROM,
+        smtpOptions: {
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASSWORD
+            }
+        }
     }
 };
