@@ -1,10 +1,16 @@
+//const environment = process.env.ENV || 'development';
+//const { secret } = require('../config/config')[environment];
+
+const { secret } = require('../config.json');
+
 const jwt = require('express-jwt');
-const { secret } = require('config.json');
-const db = require('_helpers/db');
+const db = require('../_helpers/db');
 
 module.exports = authorize;
 
 function authorize(roles = []) {
+    console.log('Função authorize - MID');
+
     // roles param can be a single role string (e.g. Role.User or 'User') 
     // or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
     if (typeof roles === 'string') {
@@ -18,6 +24,10 @@ function authorize(roles = []) {
         // authorize based on user role
         async (req, res, next) => {
             const account = await db.Account.findByPk(req.user.id);
+
+            console.log('@@@--------------------------------------------------------------------------------------------------------')
+            console.log(roles.length);
+            console.log(account.role);
 
             if (!account || (roles.length && !roles.includes(account.role))) {
                 // account no longer exists or role not authorized

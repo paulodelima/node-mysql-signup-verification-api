@@ -1,7 +1,11 @@
-const config = require('config.json');
+//const environment = process.env.ENV || 'development';
+//const config = require('../config/config')[environment];
+
+const config = require('../config.json');
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
 
+console.log('Banco de dados');
 module.exports = db = {};
 
 initialize();

@@ -1,4 +1,5 @@
 ﻿require('rootpath')();
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -17,7 +18,7 @@ app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: 
 app.use('/accounts', require('./accounts/accounts.controller'));
 
 // swagger docs route
-app.use('/api-docs', require('_helpers/swagger'));
+//app.use('/api-docs', require('_helpers/swagger'));
 
 // global error handler
 app.use(errorHandler);

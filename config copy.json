@@ -2,9 +2,9 @@
     "database": {
         "host": "localhost",
         "port": 3306,
-        "user": "soulplusdb",
-        "password": "@SoulPlus4589@",
-        "database": "soulplus"
+        "user": "root",
+        "password": "",
+        "database": "node-mysql-signup-verification-api"
     },
     "secret": "SOULPLUS-2021",
     "emailFrom": "Soul Plus Teste",
