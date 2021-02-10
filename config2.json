@@ -13,7 +13,7 @@
         "port": 587,
         "auth": {
             "user": "zula51@ethereal.email",
-            "pass": "mvmWRgNn4nPW2a56Vj"
+            "pass": "mvmWRgNn4nPW2a56Vj" 
         }
     }
 }
