@@ -5,7 +5,6 @@ const config = require('../config/config')[environment];
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
 
-console.log('Banco de dados');
 module.exports = db = {};
 
 initialize();
@@ -17,7 +16,7 @@ async function initialize() {
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
     // connect to db
-    const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
+    const sequelize = new Sequelize(database, user, password, { dialect: 'mysql', logging: false });
 
     // init models and add them to the exported db object
     db.Account = require('../accounts/account.model')(sequelize);
@@ -29,4 +28,6 @@ async function initialize() {
     
     // sync all models with database
     await sequelize.sync();
+
+    console.log('################################################################### BANCO DE DADOS INICIALIZADO  <<<<<')
 }

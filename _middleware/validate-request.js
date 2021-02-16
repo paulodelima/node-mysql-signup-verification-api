@@ -1,7 +1,6 @@
 module.exports = validateRequest;
 
 function validateRequest(req, next, schema) {
-    console.log('Função Validate Request - MID');
     const options = {
         abortEarly: false, // include all errors
         allowUnknown: true, // ignore unknown props

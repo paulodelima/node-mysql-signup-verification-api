@@ -5,16 +5,16 @@ module.exports = {
             port: 3306,
             user: 'soulplusdb',
             password: '@SoulPlus4589@',
-            database: 'soulplus'
+            database: 'testeToken'
         },
-        secret: 'SOULPLUS-2021',
+        secret: 'SOULPLUS-2021@3719#',
         emailFrom: 'Soul Plus Teste',
         smtpOptions: {
             host: 'smtp.ethereal.email',
             port: 587,
             auth: {
-                user: 'zula51@ethereal.email',
-                pass: 'mvmWRgNn4nPW2a56Vj'
+                user: 'jaylen34@ethereal.email',
+                pass: 'wQrX8gzBc88MGhuePv'
             }
         }
     },

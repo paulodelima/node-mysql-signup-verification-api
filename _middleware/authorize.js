@@ -9,8 +9,6 @@ const db = require('../_helpers/db');
 module.exports = authorize;
 
 function authorize(roles = []) {
-    console.log('Função authorize - MID');
-
     // roles param can be a single role string (e.g. Role.User or 'User') 
     // or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
     if (typeof roles === 'string') {
@@ -25,10 +23,6 @@ function authorize(roles = []) {
         async (req, res, next) => {
             const account = await db.Account.findByPk(req.user.id);
 
-            console.log('@@@--------------------------------------------------------------------------------------------------------')
-            console.log(roles.length);
-            console.log(account.role);
-
             if (!account || (roles.length && !roles.includes(account.role))) {
                 // account no longer exists or role not authorized
                 return res.status(401).json({ message: 'Unauthorized' });
@@ -37,6 +31,9 @@ function authorize(roles = []) {
             // authentication and authorization successful
             req.user.role = account.role;
             const refreshTokens = await account.getRefreshTokens();
+
+            console.log(refreshTokens);
+            
             req.user.ownsToken = token => !!refreshTokens.find(x => x.token === token);
             next();
         }

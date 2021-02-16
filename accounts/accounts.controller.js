@@ -6,8 +6,6 @@ const authorize = require('_middleware/authorize')
 const Role = require('_helpers/role');
 const accountService = require('./account.service');
 
-console.log('########################################################################################################')
-
 // routes
 router.post('/authenticate', authenticateSchema, authenticate);
 router.post('/refresh-token', refreshToken);
@@ -26,8 +24,6 @@ router.delete('/:id', authorize(), _delete);
 module.exports = router;
 
 function authenticateSchema(req, res, next) {
-    console.log('Controller - authenticateSchema');
-
     const schema = Joi.object({
         email: Joi.string().required(),
         password: Joi.string().required()
@@ -36,8 +32,6 @@ function authenticateSchema(req, res, next) {
 }
 
 function authenticate(req, res, next) {
-    console.log('Controller - authenticate');
-
     const { email, password } = req.body;
     const ipAddress = req.ip;
     accountService.authenticate({ email, password, ipAddress })
@@ -49,8 +43,6 @@ function authenticate(req, res, next) {
 }
 
 function refreshToken(req, res, next) {
-    console.log('Controller - refreshToken');
-
     const token = req.cookies.refreshToken;
     const ipAddress = req.ip;
     accountService.refreshToken({ token, ipAddress })
@@ -62,8 +54,6 @@ function refreshToken(req, res, next) {
 }
 
 function revokeTokenSchema(req, res, next) {
-    console.log('Controller - revokeRokenSchema');
-
     const schema = Joi.object({
         token: Joi.string().empty('')
     });
@@ -71,8 +61,6 @@ function revokeTokenSchema(req, res, next) {
 }
 
 function revokeToken(req, res, next) {
-    console.log('Controller - revokeToken');
-
     // accept token from request body or cookie
     const token = req.body.token || req.cookies.refreshToken;
     const ipAddress = req.ip;
@@ -90,8 +78,6 @@ function revokeToken(req, res, next) {
 }
 
 function registerSchema(req, res, next) {
-    console.log('Controller - registerSchema');
-
     const schema = Joi.object({
         title: Joi.string().required(),
         firstName: Joi.string().required(),
@@ -105,17 +91,12 @@ function registerSchema(req, res, next) {
 }
 
 function register(req, res, next) {
-    console.log('Controller - register');
-    console.log(req.get('origin'));
-
     accountService.register(req.body, req.get('origin'))
         .then(() => res.json({ message: 'Registration successful, please check your email for verification instructions' }))
         .catch(next);
 }
 
 function verifyEmailSchema(req, res, next) {
-    console.log('Controller - verifyEmailSchema');
-
     const schema = Joi.object({
         token: Joi.string().required()
     });
@@ -123,16 +104,12 @@ function verifyEmailSchema(req, res, next) {
 }
 
 function verifyEmail(req, res, next) {
-    console.log('Controller - verifyEmail');
-
     accountService.verifyEmail(req.body)
         .then(() => res.json({ message: 'Verification successful, you can now login' }))
         .catch(next);
 }
 
 function forgotPasswordSchema(req, res, next) {
-    console.log('Controller - forgotPasswordSchema');
-
     const schema = Joi.object({
         email: Joi.string().email().required()
     });
@@ -140,16 +117,12 @@ function forgotPasswordSchema(req, res, next) {
 }
 
 function forgotPassword(req, res, next) {
-    console.log('Controller - forgotPassword');
-
     accountService.forgotPassword(req.body, req.get('origin'))
         .then(() => res.json({ message: 'Please check your email for password reset instructions' }))
         .catch(next);
 }
 
 function validateResetTokenSchema(req, res, next) {
-    console.log('Controller - validadeResetTokenSchema');
-
     const schema = Joi.object({
         token: Joi.string().required()
     });
@@ -157,16 +130,12 @@ function validateResetTokenSchema(req, res, next) {
 }
 
 function validateResetToken(req, res, next) {
-    console.log('Controller - validateResetToken');
-
     accountService.validateResetToken(req.body)
         .then(() => res.json({ message: 'Token is valid' }))
         .catch(next);
 }
 
 function resetPasswordSchema(req, res, next) {
-    console.log('Controller - resetPasswordSchema');
-
     const schema = Joi.object({
         token: Joi.string().required(),
         password: Joi.string().min(6).required(),
@@ -176,24 +145,18 @@ function resetPasswordSchema(req, res, next) {
 }
 
 function resetPassword(req, res, next) {
-    console.log('Controller - resetPassword');
-
     accountService.resetPassword(req.body)
         .then(() => res.json({ message: 'Password reset successful, you can now login' }))
         .catch(next);
 }
 
 function getAll(req, res, next) {
-    console.log('Controller - getAll');
-
     accountService.getAll()
         .then(accounts => res.json(accounts))
         .catch(next);
 }
 
 function getById(req, res, next) {
-    console.log('Controller - getById');
-
     // users can get their own account and admins can get any account
     if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
@@ -205,8 +168,6 @@ function getById(req, res, next) {
 }
 
 function createSchema(req, res, next) {
-    console.log('Controller - createSchema');
-
     const schema = Joi.object({
         title: Joi.string().required(),
         firstName: Joi.string().required(),
@@ -220,16 +181,12 @@ function createSchema(req, res, next) {
 }
 
 function create(req, res, next) {
-    console.log('Controller - create');
-
     accountService.create(req.body)
         .then(account => res.json(account))
         .catch(next);
 }
 
 function updateSchema(req, res, next) {
-    console.log('Controller - updateSchema');
-
     const schemaRules = {
         title: Joi.string().empty(''),
         firstName: Joi.string().empty(''),
@@ -249,8 +206,6 @@ function updateSchema(req, res, next) {
 }
 
 function update(req, res, next) {
-    console.log('Controller - update');
-
     // users can update their own account and admins can update any account
     if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
@@ -262,8 +217,6 @@ function update(req, res, next) {
 }
 
 function _delete(req, res, next) {
-    console.log('Controller - _delete');
-
     // users can delete their own account and admins can delete any account
     if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
@@ -277,8 +230,6 @@ function _delete(req, res, next) {
 // helper functions
 
 function setTokenCookie(res, token) {
-    console.log('Controller - setTokenCookie');
-
     // create cookie with refresh token that expires in 7 days
     const cookieOptions = {
         httpOnly: true,

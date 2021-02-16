@@ -3,8 +3,6 @@ const { DataTypes } = require('sequelize');
 module.exports = model;
 
 function model(sequelize) {
-    console.log('Model - account');
-
     const attributes = {
         email: { type: DataTypes.STRING, allowNull: false },
         passwordHash: { type: DataTypes.STRING, allowNull: false },
