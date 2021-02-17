@@ -1,7 +1,5 @@
 const environment = process.env.ENV || 'development';
 const config = require('../config/config')[environment];
-
-//const config = require('../config.json');
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
 

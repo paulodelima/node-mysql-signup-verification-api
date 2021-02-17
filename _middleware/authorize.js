@@ -1,8 +1,5 @@
 const environment = process.env.ENV || 'development';
 const { secret } = require('../config/config')[environment];
-
-//const { secret } = require('../config.json');
-
 const jwt = require('express-jwt');
 const db = require('../_helpers/db');
 
@@ -31,9 +28,6 @@ function authorize(roles = []) {
             // authentication and authorization successful
             req.user.role = account.role;
             const refreshTokens = await account.getRefreshTokens();
-
-            console.log(refreshTokens);
-            
             req.user.ownsToken = token => !!refreshTokens.find(x => x.token === token);
             next();
         }
