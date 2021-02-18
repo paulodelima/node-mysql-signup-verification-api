@@ -3,8 +3,8 @@ module.exports = {
         database: {
             host: 'localhost',
             port: 3306,
-            user: 'soulplusdb',
-            password: '@SoulPlus4589@',
+            user: 'root',
+            password: '',
             database: 'testeToken'
         },
         secret: 'SOULPLUS-2021@3719#',
