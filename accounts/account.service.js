@@ -216,7 +216,7 @@ async function _delete(id) {
 
 async function getAccount(id) {
     const account = await db.Account.findByPk(id);
-    if (!account) throw 'Account not found';
+    if (!account) throw new Error('Account not found');
     return account;
 }
 
